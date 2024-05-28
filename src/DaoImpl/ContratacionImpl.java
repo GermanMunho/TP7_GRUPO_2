@@ -11,9 +11,9 @@ import Dao.ContratacionDao;
 import Entidades.Contratacion;
 
 public class ContratacionImpl implements ContratacionDao {
-	private static final String agregar = "call SPAgregarContratacion(?, ?, ?)";
+	private static final String agregar = "call SPAgregarContratacion(?, ?, ?, ?)";
 	private static final String eliminar = "call SPEliminarContratacion(?)";
-	private static final String modificar = "call SPModificarContratacion(?, ?, ?)";
+	private static final String modificar = "call SPModificarContratacion(?, ?, ?, ?)";
 	private static final String listar = "SELECT * FROM contratacion";
 
 	@Override

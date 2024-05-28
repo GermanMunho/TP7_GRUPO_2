@@ -12,9 +12,9 @@ import Dao.UsuariosDao;
 import Entidades.Usuarios;;
 
 public class UsuariosImpl implements UsuariosDao {
-	private static final String agregar = "call SPAgregarUsuarios(?, ?, ?)";
+	private static final String agregar = "call SPAgregarUsuarios(?, ?, ?, ?, ?, ?)";
 	private static final String eliminar = "call SPEliminarUsuarios(?)";
-	private static final String modificar = "call SPModificarUsuarios(?, ?, ?)";
+	private static final String modificar = "call SPModificarUsuarios(?, ?, ?, ?, ?, ?)";
 	private static final String listar = "SELECT * FROM Usuarios";
 
 	@Override
@@ -30,7 +30,7 @@ public class UsuariosImpl implements UsuariosDao {
 			callst.setString(3, Usuarios.getApellido());
 			callst.setString(4, Usuarios.getNombreUsuario());
 			callst.setInt(5, Usuarios.getTipoUsuario());
-			callst.setString(2, Usuarios.getPass());
+			callst.setString(6, Usuarios.getPass());
 
 			if (callst.executeUpdate() > 0) {
 				conexion.commit();
@@ -87,7 +87,7 @@ public class UsuariosImpl implements UsuariosDao {
 			callst.setString(3, Usuarios.getApellido());
 			callst.setString(4, Usuarios.getNombreUsuario());
 			callst.setInt(5, Usuarios.getTipoUsuario());
-			callst.setString(2, Usuarios.getPass());
+			callst.setString(6, Usuarios.getPass());
 			if (callst.executeUpdate() > 0) {
 				conexion.commit();
 				SPExitoso = true;

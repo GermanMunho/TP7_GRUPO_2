@@ -11,9 +11,9 @@ import Dao.SegurosDao;
 import Entidades.Seguros;
 
 public class SeguroImpl implements SegurosDao{
-	private static final String agregar = "call SPAgregarSeguros(?, ?, ?)";
+	private static final String agregar = "call SPAgregarSeguros(?, ?, ?, ?, ?)";
 	private static final String eliminar = "call SPEliminarSeguros(?)";
-	private static final String modificar = "call SPModificarSeguros(?, ?, ?)";
+	private static final String modificar = "call SPModificarSeguros(?, ?, ?, ?, ?)";
 	private static final String listar = "SELECT * FROM seguros";
 
 	@Override

@@ -12,9 +12,9 @@ import Dao.TipoSegurosDao;
 import Entidades.TipoSeguros;
 
 public class TipoSeguroImpl implements TipoSegurosDao {
-	private static final String agregar = "call SPAgregartipoSeguros(?, ?, ?)";
+	private static final String agregar = "call SPAgregartipoSeguros(?, ?)";
 	private static final String eliminar = "call SPEliminartipoSeguros(?)";
-	private static final String modificar = "call SPModificartipoSeguros(?, ?, ?)";
+	private static final String modificar = "call SPModificartipoSeguros(?, ?)";
 	private static final String listar = "SELECT * FROM tipoSeguros";
 
 	@Override
