@@ -129,4 +129,33 @@ public class SeguroImpl implements SegurosDao{
 
 		return new Seguros(ID, nombre, idSeguro, CostoContracion,CostoAsegurado);
 	}
+	
+	public int obtenerUltimoID() {
+		 Connection conexion = null;
+	     PreparedStatement statement = null;
+	     ResultSet rs = null;
+	     int ultimoID = 0;
+		
+	     try {
+	            conexion = Conexion.getConexion().getSQLConexion();
+	            statement = conexion.prepareStatement("SELECT MAX(idSeguro) FROM seguros");
+	            rs = statement.executeQuery();
+	            
+	            if (rs.next()) {
+	                ultimoID = rs.getInt("UltimoID");
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        } finally {
+	  
+	            try {
+	                if (rs != null) rs.close();
+	                if (statement != null) statement.close();
+	                if (conexion != null) conexion.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+		return ultimoID;
+	}
 }
