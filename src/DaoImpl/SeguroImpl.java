@@ -138,7 +138,7 @@ public class SeguroImpl implements SegurosDao{
 		
 	     try {
 	            conexion = Conexion.getConexion().getSQLConexion();
-	            statement = conexion.prepareStatement("SELECT MAX(idSeguro) FROM seguros");
+	            statement = conexion.prepareStatement("SELECT MAX(idSeguro) as UltimoID FROM seguros");
 	            rs = statement.executeQuery();
 	            
 	            if (rs.next()) {
@@ -158,4 +158,11 @@ public class SeguroImpl implements SegurosDao{
 	        }
 		return ultimoID;
 	}
+	
+	public List<Seguros> listarPorTipo(int tipoSeguroId) {
+        List<Seguros> lista = new ArrayList<>();
+        ////////
+        return lista;
+    }
+	
 }
