@@ -18,28 +18,29 @@ import DaoImpl.TipoSeguroImpl;
 
 @WebServlet("/ServletAgregar")
 public class ServletAgregar extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
-       
-
+   
     public ServletAgregar() {
         super();
-
     }
-
-
+    
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-    	SeguroImpl seguroImpl = new SeguroImpl();
-        TipoSeguroImpl tipoSeguroImpl = new TipoSeguroImpl();
-        
-        ArrayList tiposSeguro = (ArrayList) tipoSeguroImpl.listar();
-        int ultimoId = seguroImpl.obtenerUltimoID() + 1;
-        
-        request.setAttribute("ultimoId", ultimoId);
-        request.setAttribute("tiposSeguro", tiposSeguro);
-        
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/AgregarSeguro.jsp");
-        dispatcher.forward(request, response);
+    	if(request.getParameter("nuevo") != null) {
+    		SeguroImpl seguroImpl = new SeguroImpl();
+            TipoSeguroImpl tipoSeguroImpl = new TipoSeguroImpl();
+            
+            ArrayList tiposSeguro = (ArrayList) tipoSeguroImpl.listar();
+            int ultimoId = seguroImpl.obtenerUltimoID() + 1;
+            
+            request.setAttribute("ultimoId", ultimoId);
+            request.setAttribute("tiposSeguro", tiposSeguro);
+            
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/AgregarSeguro.jsp");
+            dispatcher.forward(request, response);
+    	}
+    	
     }
 
 

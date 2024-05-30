@@ -12,7 +12,7 @@
 <title>Listar seguro</title>
 </head>
 <body>
-<a href="Inicio.jsp">Inicio</a> <a href="AgregarSeguro.jsp">Agregar seguro</a> <a href="ListarSeguro.jsp?MostrarSeguros">Listar seguro</a>
+<a href="Inicio.jsp">Inicio</a> <a href="ServletAgregar?nuevo">Agregar seguro</a> <a href="ServletListar?MostrarSeguros">Listar seguro</a>
 <h1>Listar seguro</h1>
 
 <%
@@ -25,13 +25,15 @@
 <form method="get" action="ServletListar">
 	Tipos de seguros:
 	<select name="tipoSeguro">
-	<%
-		for(TipoSeguros tipo : ls){
-	%>
-		<option><%=tipo.getDescripcion() %></option>
-	<%
-		}
-	%>
+		<%
+			if(ls != null){
+				for(TipoSeguros tipo : ls){
+				%>
+					<option><%=tipo.getDescripcion() %></option>
+				<%
+				}
+			}
+		%>
     </select>
 	<input type="submit" name="btnFiltrar" value="Filtrar seguros">
 </form>
@@ -46,19 +48,19 @@
 <table border="1">
 	<tr> <th>ID</th> <th>Descripción</th> <th>Tipo</th>	<th>Costo de contratación</th> <th>Costo máximo asegurado</th> </tr>
 	<%
-	if(listaSeguros != null){
-		for(Seguros seg: listaSeguros){
-		 %>
-			<tr>	
-				<td><%=seg.getId() %></td>
-				<td><%=seg.getDescripcion() %></td>
-				<td><%=seg.getIdTipo() %></td>
-				<td><%=seg.getCostoContracion() %></td>
-				<td><%=seg.getCostoAsegurado()%></td>
-			</tr>
-	  	 <%
-	  	}
-	}
+		if(listaSeguros != null){
+			for(Seguros seg: listaSeguros){
+			 %>
+				<tr>	
+					<td><%=seg.getId() %></td>
+					<td><%=seg.getDescripcion() %></td>
+					<td><%=seg.getIdTipo() %></td>
+					<td><%=seg.getCostoContracion() %></td>
+					<td><%=seg.getCostoAsegurado()%></td>
+				</tr>
+		  	 <%
+		  	}
+		}
 	%>
 </table>
 

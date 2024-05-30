@@ -10,7 +10,7 @@
 <title>Agregar seguro</title>
 </head>
 <body>
-<a href="Inicio.jsp">Inicio</a> <a href="AgregarSeguro.jsp">Agregar seguro</a> <a href="ListarSeguro.jsp">Listar seguro</a>
+<a href="Inicio.jsp">Inicio</a> <a href="ServletAgregar?nuevo">Agregar seguro</a> <a href="ServletListar?MostrarSeguros">Listar seguro</a>
 <h1>Agregar seguro</h1>
 
 <form method="get" action="ServletAgregar">

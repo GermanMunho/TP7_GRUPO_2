@@ -131,6 +131,11 @@ public class SeguroImpl implements SegurosDao{
 	}
 	
 	public int obtenerUltimoID() {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		}catch(ClassNotFoundException e){
+			e.printStackTrace();
+		}
 		 Connection conexion = null;
 	     PreparedStatement statement = null;
 	     ResultSet rs = null;
