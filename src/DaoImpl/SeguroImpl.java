@@ -14,7 +14,7 @@ public class SeguroImpl implements SegurosDao{
 	private static final String agregar = "call SPAgregarSeguros(?, ?, ?, ?, ?)";
 	private static final String eliminar = "call SPEliminarSeguros(?)";
 	private static final String modificar = "call SPModificarSeguros(?, ?, ?, ?, ?)";
-	private static final String listar = "SELECT * FROM seguros";
+	private static final String listar = "call SPMostrarSeguros()";
 
 	@Override
 	public boolean agregar(Seguros seguros) {
@@ -26,7 +26,7 @@ public class SeguroImpl implements SegurosDao{
 			callst = conexion.prepareCall(agregar);
 			callst.setInt(1, seguros.getId());
 			callst.setString(2, seguros.getDescripcion());
-			callst.setInt(3, seguros.getIdTipo());
+			callst.setInt(3, seguros.getTipo().getId());
 			callst.setFloat(4, seguros.getCostoContracion());
 			callst.setFloat(5, seguros.getCostoAsegurado());
 			if (callst.executeUpdate() > 0) {
@@ -81,7 +81,7 @@ public class SeguroImpl implements SegurosDao{
 			callst = conexion.prepareCall(modificar);
 			callst.setInt(1, seguros_modificar.getId());
 			callst.setString(2, seguros_modificar.getDescripcion());
-			callst.setInt(3, seguros_modificar.getIdTipo());
+			callst.setInt(3, seguros_modificar.getTipo().getId());
 			callst.setFloat(4, seguros_modificar.getCostoContracion());
 			callst.setFloat(5, seguros_modificar.getCostoAsegurado());
 			if (callst.executeUpdate() > 0) {
@@ -123,13 +123,15 @@ public class SeguroImpl implements SegurosDao{
 	public Seguros getContratacion(ResultSet rs) throws SQLException {
 		int ID = rs.getInt("ID");
 		String nombre = rs.getString("Descripcion");
-		int idSeguro = rs.getInt("idSeguro");
+		int Idtipo = rs.getInt("Idtipo");
+		String Descripcion= rs.getString("TP.descripcion");
 		float CostoContracion = rs.getFloat("CostoContracion");
 		float CostoAsegurado = rs.getFloat("CostoAsegurado");
 
-		return new Seguros(ID, nombre, idSeguro, CostoContracion,CostoAsegurado);
+		return new Seguros(ID, nombre, Idtipo,Descripcion, CostoContracion,CostoAsegurado);
 	}
 	
+	@Override
 	public int obtenerUltimoID() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

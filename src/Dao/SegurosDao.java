@@ -10,6 +10,8 @@ public interface SegurosDao {
 	public boolean eliminar(Seguros Seguros_eliminar);
 
 	public boolean modificar(Seguros Seguros_modificar);
+	
+	public int obtenerUltimoID();
 
 	public List<Seguros> listar();
 

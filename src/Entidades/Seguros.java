@@ -3,17 +3,18 @@ package Entidades;
 public class Seguros {
 	private int id;
 	private String Descripcion;
-	private int idTipo;
+	private TipoSeguros Tipo;
 	private float CostoContracion;
 	private float CostoAsegurado;
 
 	public Seguros() {
 	}
 
-	public Seguros(int id, String Descripcion, int idTipo, float CostoContracion, float CostoAsegurado) {
+	public Seguros(int id, String Descripcion, int idTipo,String TDescrip, float CostoContracion, float CostoAsegurado) {
 		this.id = id;
 		this.Descripcion = Descripcion;
-		this.idTipo = idTipo;
+		this.Tipo.setId(idTipo);
+		this.Tipo.setDescripcion(TDescrip);
 		this.CostoContracion = CostoContracion;
 		this.CostoAsegurado = CostoAsegurado;
 	}
@@ -34,14 +35,6 @@ public class Seguros {
 		Descripcion = descripcion;
 	}
 
-	public int getIdTipo() {
-		return idTipo;
-	}
-
-	public void setIdTipo(int idTipo) {
-		this.idTipo = idTipo;
-	}
-
 	public float getCostoContracion() {
 		return CostoContracion;
 	}
@@ -60,8 +53,16 @@ public class Seguros {
 
 	@Override
 	public String toString() {
-		return "Seguros [id=" + id + ", Descripcion=" + Descripcion + ", idTipo=" + idTipo + ", CostoContracion="
+		return "Seguros [id=" + id + ", Descripcion=" + Descripcion + ", idTipo=" + Tipo.getDescripcion() + ", CostoContracion="
 				+ CostoContracion + ", CostoAsegurado=" + CostoAsegurado + "]";
+	}
+
+	public TipoSeguros getTipo() {
+		return Tipo;
+	}
+
+	public void setTipo(TipoSeguros tipo) {
+		Tipo = tipo;
 	}
 
 }

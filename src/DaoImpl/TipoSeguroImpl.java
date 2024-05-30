@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-
 import Dao.TipoSegurosDao;
 import Entidades.TipoSeguros;
 
@@ -16,6 +14,7 @@ public class TipoSeguroImpl implements TipoSegurosDao {
 	private static final String eliminar = "call SPEliminartipoSeguros(?)";
 	private static final String modificar = "call SPModificartipoSeguros(?, ?)";
 	private static final String listar = "SELECT * FROM tipoSeguros";
+	private static final String Buscar = "call SPMostrartiposeguros(?)";
 
 	@Override
 	public boolean agregar(TipoSeguros tipoSeguros) {
@@ -122,10 +121,57 @@ public class TipoSeguroImpl implements TipoSegurosDao {
 		return lSeguros;
 
 	}
-
-	public TipoSeguros getContratacion(ResultSet rs) throws SQLException {
-		int ID = rs.getInt("ID");
-		String tipoSeguro = rs.getString("Descripcion");
+	
+	@Override
+	public TipoSeguros BuscarTipoSeguro(int idTipo) {
+		int id=idTipo;
+		String descripcion=null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		}catch(ClassNotFoundException e){
+			e.printStackTrace();
+		}
+		Connection conexion = null;
+		CallableStatement callst = null;
+		boolean SPExitoso = false;
+		try {
+			conexion = Conexion.getConexion().getSQLConexion();
+			callst = conexion.prepareCall(Buscar);
+			callst.setInt(1, idTipo);
+			if (callst.executeUpdate() > 0) {
+				
+				descripcion=callst.getString("Descripcion");
+				conexion.commit();
+				SPExitoso = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				if (conexion != null) {
+					conexion.rollback();
+				}
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return new TipoSeguros(id,descripcion);
+	}
+	@Override
+	public TipoSeguros getContratacion(ResultSet rs) {
+		int ID = 0;
+		try {
+			ID = rs.getInt("ID");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String tipoSeguro = null;
+		try {
+			tipoSeguro = rs.getString("Descripcion");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return new TipoSeguros(ID, tipoSeguro);
 	}
