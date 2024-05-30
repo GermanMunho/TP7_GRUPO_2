@@ -25,11 +25,20 @@ public class ServletListar extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		if(request.getParameter("MostrarSeguros") != null) {
+			TipoSeguroImpl tipo = new TipoSeguroImpl();
+			ArrayList<TipoSeguros> lista = new ArrayList<TipoSeguros>();
+			lista = tipo.listar();
+			request.setAttribute("listaT", lista);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/ListarSeguro.jsp");
+	        dispatcher.forward(request, response);
+		}
+		
 		TipoSeguroImpl tipo = new TipoSeguroImpl();
 		ArrayList<TipoSeguros> lista = (ArrayList<TipoSeguros>) tipo.listar();
+		
 		SeguroImpl seg = new SeguroImpl();
 		request.setAttribute("listaTipos", lista);
-		
 		ArrayList<Seguros> listaSeguros;
 		
 		if (request.getParameter("btnFiltrar") != null) {

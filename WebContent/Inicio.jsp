@@ -7,7 +7,7 @@
 <title>Inicio</title>
 </head>
 <body>
-<a href="Inicio.jsp">Inicio</a> <a href="AgregarSeguro.jsp">Agregar seguro</a> <a href="ListarSeguro.jsp">Listar seguro</a>
+<a href="Inicio.jsp">Inicio</a> <a href="AgregarSeguro.jsp">Agregar seguro</a> <a href="ServletListar?MostrarSeguros">Listar seguro</a>
 <h1>Soy la página inicio</h1>
 </body>
 </html>

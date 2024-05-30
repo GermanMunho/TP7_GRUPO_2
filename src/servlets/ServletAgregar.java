@@ -2,6 +2,7 @@ package servlets;
 
 import java.awt.List;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,7 +32,7 @@ public class ServletAgregar extends HttpServlet {
     	SeguroImpl seguroImpl = new SeguroImpl();
         TipoSeguroImpl tipoSeguroImpl = new TipoSeguroImpl();
         
-        List tiposSeguro = (List) tipoSeguroImpl.listar();
+        ArrayList tiposSeguro = (ArrayList) tipoSeguroImpl.listar();
         int ultimoId = seguroImpl.obtenerUltimoID() + 1;
         
         request.setAttribute("ultimoId", ultimoId);

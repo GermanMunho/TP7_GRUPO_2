@@ -97,21 +97,29 @@ public class TipoSeguroImpl implements TipoSegurosDao {
 	}
 
 	@Override
-	public List<TipoSeguros> listar() {
+	public ArrayList<TipoSeguros> listar() {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		}catch(ClassNotFoundException e){
+			e.printStackTrace();
+		}
 		PreparedStatement statement;
 		ResultSet rs;
-		ArrayList<TipoSeguros> personas = new ArrayList<TipoSeguros>();
+		ArrayList<TipoSeguros> lSeguros = new ArrayList<TipoSeguros>();
 		Conexion conexion = Conexion.getConexion();
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(listar);
 			rs = statement.executeQuery();
 			while (rs.next()) {
-				personas.add(getContratacion(rs));
+				TipoSeguros ts = new TipoSeguros();
+				ts.setId(rs.getInt("idTipo"));
+				ts.setDescripcion(rs.getString("descripcion"));
+				lSeguros.add(ts);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return personas;
+		return lSeguros;
 
 	}
 
