@@ -15,16 +15,19 @@ public class ContratacionImpl implements ContratacionDao {
 	private static final String eliminar = "call SPEliminarContratacion(?)";
 	private static final String modificar = "call SPModificarContratacion(?, ?, ?, ?)";
 	private static final String listar = "SELECT * FROM contratacion";
+	private Connection conexion;
+	private CallableStatement callst;
+	private PreparedStatement statement;
 
 	@Override
 	public boolean agregar(Contratacion contratacion) {
-		Connection conexion = null;
-		CallableStatement callst = null;
+		conexion = null;
+		callst = null;
 		boolean isInsertExitoso = false;
 		try {
 			conexion = Conexion.getConexion().getSQLConexion();
 			callst = conexion.prepareCall(agregar);
-			
+
 			callst.setInt(1, contratacion.getID());
 			callst.setString(2, contratacion.getNombre());
 			callst.setInt(3, contratacion.getIDSeguro());
@@ -43,8 +46,8 @@ public class ContratacionImpl implements ContratacionDao {
 	@Override
 
 	public boolean eliminar(Contratacion contratacion_eliminar) {
-		Connection conexion = null;
-		CallableStatement callst = null;
+		conexion = null;
+		callst = null;
 		boolean isDeleteExitoso = false;
 		try {
 			conexion = Conexion.getConexion().getSQLConexion();
@@ -68,8 +71,8 @@ public class ContratacionImpl implements ContratacionDao {
 
 	@Override
 	public boolean modificar(Contratacion contratacion_modificar) {
-		Connection conexion = null;
-		CallableStatement callst = null;
+		conexion = null;
+		callst = null;
 		boolean SPExitoso = false;
 		try {
 			conexion = Conexion.getConexion().getSQLConexion();
@@ -97,7 +100,7 @@ public class ContratacionImpl implements ContratacionDao {
 
 	@Override
 	public List<Contratacion> listar() {
-		PreparedStatement statement;
+		statement = null;
 		ResultSet rs;
 		ArrayList<Contratacion> personas = new ArrayList<Contratacion>();
 		Conexion conexion = Conexion.getConexion();

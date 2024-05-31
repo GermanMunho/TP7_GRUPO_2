@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.eclipse.jdt.internal.compiler.parser.ParserBasicInformation;
-
 import Entidades.Seguros;
 import Entidades.TipoSeguros;
 import Negocio.SegurosNeg;

@@ -31,7 +31,25 @@ public class ServletListar extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		ArrayList<Seguros> listaSeguros;
+		if (request.getParameter("btnFiltrar") != null) {
+			String tipoSeguroId = request.getParameter("tipoSeguro");
+			if (tipoSeguroId != null && !tipoSeguroId.isEmpty()) {
+				listaSeguros = (ArrayList<Seguros>) seg.listarPorTipo(Integer.parseInt(tipoSeguroId));
+			} else {
+				listaSeguros = (ArrayList<Seguros>) seg.listar();
+			}
+		} else {
+			listaSeguros = (ArrayList<Seguros>) seg.listar();
+		}
 
+		request.setAttribute("listaSeguros", listaSeguros);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/ListarSeguro.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		if (request.getParameter("MostrarSeguros") != null) {
 			ArrayList<TipoSeguros> lista = (ArrayList<TipoSeguros>) tipo.listar();
 			request.setAttribute("listaT", lista);
@@ -41,28 +59,8 @@ public class ServletListar extends HttpServlet {
 			ArrayList<TipoSeguros> lista = (ArrayList<TipoSeguros>) tipo.listar();
 			request.setAttribute("listaTipos", lista);
 
-			ArrayList<Seguros> listaSeguros;
-			if (request.getParameter("btnFiltrar") != null) {
-				String tipoSeguroId = request.getParameter("tipoSeguro");
-				if (tipoSeguroId != null && !tipoSeguroId.isEmpty()) {
-					listaSeguros = (ArrayList<Seguros>) seg.listarPorTipo(Integer.parseInt(tipoSeguroId));
-				} else {
-					listaSeguros = (ArrayList<Seguros>) seg.listar();
-				}
-			} else {
-				listaSeguros = (ArrayList<Seguros>) seg.listar();
-			}
+			doGet(request, response);
 
-			request.setAttribute("listaSeguros", listaSeguros);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/ListarSeguro.jsp");
-			dispatcher.forward(request, response);
 		}
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
-
-	}
-
 }
