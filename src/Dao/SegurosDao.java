@@ -15,4 +15,5 @@ public interface SegurosDao {
 
 	public List<Seguros> listar();
 
+	public List<Seguros> listarPorTipo(int tipoSeguroId);
 }

@@ -1,10 +1,9 @@
-<%@page import="DaoImpl.TipoSeguroImpl"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="Entidades.Seguros"%>
-<%@page import="Entidades.TipoSeguros"%>
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="Entidades.Seguros"%>
+<%@ page import="Entidades.TipoSeguros"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -25,18 +24,20 @@
 	%>
 
 	<form method="get" action="ServletListar">
-		Tipos de seguros: <select name="tipoSeguro">
-			<%
-				if (ls != null) {
-					for (TipoSeguros tipo : ls) {
-			%>
-			<option><%=tipo.getDescripcion()%></option>
-			<%
-				}
-				}
-			%>
-		</select> <input type="submit" name="btnFiltrar" value="Filtrar seguros">
-	</form>
+    Tipos de seguros: <select name="tipoSeguro">
+        <%
+            ArrayList<TipoSeguros> Ls = (ArrayList<TipoSeguros>) request.getAttribute("listaTipos");
+            if (ls != null) {
+                for (TipoSeguros tipo : ls) {
+        %>
+        <option value="<%= tipo.getId() %>"><%= tipo.getDescripcion() %></option>
+        <%
+                }
+            }
+        %>
+    </select>
+    <input type="submit" name="btnFiltrar" value="Filtrar seguros">
+</form>
 
 	<%
 		ArrayList<Seguros> listaSeguros = null;
@@ -54,22 +55,20 @@
 			<th>Costo máximo asegurado</th>
 		</tr>
 		<%
-		if(listaSeguros != null){
-			for(Seguros seg: listaSeguros){
-			 %>
-				<tr>	
-					<td><%=seg.getId() %></td>
-					<td><%=seg.getDescripcion() %></td>
-					<td><%=seg.getTipo().getDescripcion() %></td>
-					<td><%=seg.getCostoContracion() %></td>
-					<td><%=seg.getCostoAsegurado()%></td>
-				</tr>
-		  	 <%
-		  	}
-		}
+			if (listaSeguros != null) {
+				for (Seguros seg : listaSeguros) {
+		%>
+		<tr>
+			<td><%=seg.getId()%></td>
+			<td><%=seg.getDescripcion()%></td>
+			<td><%=seg.getTipo().getDescripcion()%></td>
+			<td><%=seg.getCostoContracion()%></td>
+			<td><%=seg.getCostoAsegurado()%></td>
+		</tr>
+		<%
+			}
+			}
 		%>
 	</table>
-
-
 </body>
 </html>

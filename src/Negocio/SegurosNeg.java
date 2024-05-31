@@ -12,6 +12,9 @@ public interface SegurosNeg {
 	public boolean modificar(Seguros Seguros_modificar);
 
 	public int obtenerUltimoID();
-	
+
 	public List<Seguros> listar();
+
+	public List<Seguros> listarPorTipo(int tipoSeguroId);
+
 }

@@ -41,7 +41,7 @@
 				if (lista != null && !lista.isEmpty()) {
 					for (TipoSeguros tipo : lista) {
 			%>
-			<option value="<%=tipo.getDescripcion()%>"><%=tipo.getDescripcion()%></option>
+			<option value="<%=tipo.getId()%>"><%=tipo.getDescripcion()%></option>
 			<%
 				}
 				} else {

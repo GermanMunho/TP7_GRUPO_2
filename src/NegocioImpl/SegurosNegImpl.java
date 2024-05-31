@@ -12,11 +12,10 @@ public class SegurosNegImpl implements SegurosNeg {
 	SegurosDao SegDao = new SeguroImpl();
 
 	public boolean agregar(Seguros Seg) {
-		boolean estado=false;
-		if(Seg.getId() > 0 && Seg.getDescripcion().trim().length() >0 && Seg.getTipo().getId() > 0&&
-				Seg.getCostoAsegurado()>0&&Seg.getCostoContracion()>0)
-		{
-			estado=SegDao.agregar(Seg);
+		boolean estado = false;
+		if (Seg.getId() > 0 && Seg.getDescripcion().trim().length() > 0 && Seg.getTipo().getId() > 0
+				&& Seg.getCostoAsegurado() > 0 && Seg.getCostoContracion() > 0) {
+			estado = SegDao.agregar(Seg);
 		}
 		return estado;
 	}
@@ -33,9 +32,13 @@ public class SegurosNegImpl implements SegurosNeg {
 	public int obtenerUltimoID() {
 		return SegDao.obtenerUltimoID();
 	}
-	
+
 	public List<Seguros> listar() {
 		return SegDao.listar();
 
+	}
+
+	public List<Seguros> listarPorTipo(int tipoSeguroId) {
+		return SegDao.listarPorTipo(tipoSeguroId);
 	}
 }

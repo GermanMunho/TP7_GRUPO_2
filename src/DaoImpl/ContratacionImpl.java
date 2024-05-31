@@ -24,6 +24,7 @@ public class ContratacionImpl implements ContratacionDao {
 		try {
 			conexion = Conexion.getConexion().getSQLConexion();
 			callst = conexion.prepareCall(agregar);
+			
 			callst.setInt(1, contratacion.getID());
 			callst.setString(2, contratacion.getNombre());
 			callst.setInt(3, contratacion.getIDSeguro());
@@ -34,11 +35,6 @@ public class ContratacionImpl implements ContratacionDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			try {
-				conexion.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
 		}
 
 		return isInsertExitoso;

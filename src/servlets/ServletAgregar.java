@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.eclipse.jdt.internal.compiler.parser.ParserBasicInformation;
+
+import Entidades.Seguros;
 import Entidades.TipoSeguros;
 import Negocio.SegurosNeg;
 import Negocio.TipoSegNeg;
@@ -36,6 +39,29 @@ public class ServletAgregar extends HttpServlet {
 		request.setAttribute("ultimoId", ultimoId);
 		request.setAttribute("tiposSeguro", tiposSeguro);
 
+		if (request.getParameter("btnAceptar") != null) {
+			String descripcion = request.getParameter("txtDescripcion");
+			String tipoSeguro = request.getParameter("tipoSeguro");
+			String costoContratacionStr = request.getParameter("txtContratacion");
+			String costoMaximoStr = request.getParameter("txtCosto");
+			TipoSeguros tipo = tipoSeguroImpl.BuscarTipoSeguro(Integer.parseInt(tipoSeguro));
+			if (descripcion != null && tipo != null && costoContratacionStr != null && costoMaximoStr != null) {
+				try {
+					float costoContratacion = Float.parseFloat(costoContratacionStr);
+					float costoMaximo = Float.parseFloat(costoMaximoStr);
+
+					Seguros seguro = new Seguros(ultimoId, descripcion, tipo.getId(), tipo.getDescripcion(),
+							costoContratacion, costoMaximo);
+					seguroImpl.agregar(seguro);
+					request.setAttribute("mensajeExito", "Seguro agregado exitosamente");
+
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			request.setAttribute("mensajeError", "Complete todos los campos");
+		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/AgregarSeguro.jsp");
 		dispatcher.forward(request, response);
 	}
